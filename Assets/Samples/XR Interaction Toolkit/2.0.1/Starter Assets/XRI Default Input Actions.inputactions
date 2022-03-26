@@ -798,7 +798,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
+                    "name": "ShowReplayUI",
                     "type": "Button",
                     "id": "f3f5b685-95d1-420b-9c1b-3717c2b32576",
                     "expectedControlType": "Button",
@@ -988,10 +988,10 @@
                     "name": "",
                     "id": "33789be6-55f8-470f-9a11-f5fbaef52614",
                     "path": "<XRController>{RightHand}/primaryButton",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "ShowReplayUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

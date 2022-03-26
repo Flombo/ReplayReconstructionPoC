@@ -1,89 +1,63 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 using DefaultNamespace;
-using UnityEngine.InputSystem;
 
 public class ReplayManager : MonoBehaviour
 {
-    private List<ActionReplayRecord> m_ActionReplayRecords = new List<ActionReplayRecord>();
-    private bool m_IsInReplayMode;
-    private Rigidbody m_RigidBody;
-    private float currentReplayIndex;
-    private float indexChangeRate;
+    private List<ActionReplayRecord> m_ActionReplayRecords;
+    private float m_CurrentReplayIndex;
+    private bool m_ShouldStartReplay;
+    private ReplayMenuController m_ReplayMenuController;
 
     private void Start()
     {
-        m_RigidBody = GetComponent<Rigidbody>();
-        indexChangeRate = 0;
+        m_ReplayMenuController = FindObjectOfType<ReplayMenuController>();
+        m_ActionReplayRecords = new List<ActionReplayRecord>();
+        StartCoroutine((MongoDBManager.Download(gameObject.name, result => 
+        {
+            m_ActionReplayRecords.AddRange(result);
+            m_ShouldStartReplay = true;
+        })));
+
+        var rigidBody = GetComponent<Rigidbody>();
+        if (rigidBody == null) return;
+        rigidBody.isKinematic = true;
     }
 
     public void Update()
     {
-
-        if (Input.GetKey(KeyCode.R))
+        if (FindObjectOfType<PlayerController>().replayMenu.activeSelf)
         {
-            m_IsInReplayMode = !m_IsInReplayMode;
-            if (m_IsInReplayMode)
+            if (m_ReplayMenuController.GetIsInReplayMode())
             {
                 SetTransform(0);
-                if (m_RigidBody == null) return;
-                m_RigidBody.isKinematic = true;
             }
             else
             {
                 SetTransform(m_ActionReplayRecords.Count - 1);
-                if (m_RigidBody == null) return;
-                m_RigidBody.isKinematic = false;
             }
-        }
-
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            indexChangeRate = 1;
-        }
-
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            indexChangeRate = -1;
-        }
-
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            indexChangeRate *= 0.5f;
         }
     }
 
     private void FixedUpdate()
     {
-        if (m_IsInReplayMode == false)
+        if (!m_ShouldStartReplay && !FindObjectOfType<ReplayMenuController>().GetIsInReplayMode()) return;
+        var nextIndex = m_CurrentReplayIndex + m_ReplayMenuController.GetReplayDirection() * m_ReplayMenuController.GetReplaySpeed();
+        if (nextIndex < m_ActionReplayRecords.Count && nextIndex >= 0)
         {
-
-            var currentGameObjectTransform = transform;
-
-            m_ActionReplayRecords.Add(new ActionReplayRecord
-            {
-                position = currentGameObjectTransform.position,
-                rotation = currentGameObjectTransform.rotation
-            });
-        }
-        else
-        {
-            var nextIndex = currentReplayIndex + indexChangeRate;
-            if (nextIndex < m_ActionReplayRecords.Count && nextIndex >= 0)
-            {
-                SetTransform(nextIndex);
-            }
+            SetTransform(nextIndex);
         }
     }
 
     private void SetTransform(float index)
     {
-        currentReplayIndex = index;
+        if(!m_ShouldStartReplay) return;
+        m_CurrentReplayIndex = index;
         var actionReplayRecord = m_ActionReplayRecords[(int)index];
+        var currentGameObject = gameObject;
         var gameObjectTransform = transform;
         gameObjectTransform.position = actionReplayRecord.position;
         gameObjectTransform.rotation = actionReplayRecord.rotation;
+        currentGameObject.SetActive(actionReplayRecord.isActive);
     }
 }

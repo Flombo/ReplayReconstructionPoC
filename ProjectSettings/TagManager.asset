@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Can
   - Ground
+  - LeftHand
+  - RightHand
+  - Ball
+  - RightHandPhysics
+  - LeftHandPhysics
   layers:
   - Default
   - TransparentFX

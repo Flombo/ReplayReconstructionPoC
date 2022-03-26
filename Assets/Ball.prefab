@@ -14,13 +14,12 @@ GameObject:
   - component: {fileID: 2273636368599008610}
   - component: {fileID: 2273636368599008611}
   - component: {fileID: 2273636368599008608}
-  - component: {fileID: -7390059786310171087}
   - component: {fileID: 4765344697955608626}
   - component: {fileID: -1725312521258766495}
   - component: {fileID: -6580172108860449672}
   m_Layer: 11
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,7 +115,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 3
 --- !u!114 &2273636368599008608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +123,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2273636368599008609}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
   m_Name: 
@@ -232,22 +231,6 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
---- !u!114 &-7390059786310171087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2273636368599008609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b17e97ac0ea086468081356a28b265c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxCollisionAmount: 6
-  currentCollisions: 0
-  speed: 4.33
-  endColor: {r: 0.6509434, g: 0.03991636, b: 0.5639971, a: 1}
 --- !u!82 &4765344697955608626
 AudioSource:
   m_ObjectHideFlags: 0

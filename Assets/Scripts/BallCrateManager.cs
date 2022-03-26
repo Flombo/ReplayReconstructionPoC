@@ -39,6 +39,8 @@ public class BallCrateManager : MonoBehaviour
                 Quaternion.identity
             );
 
+            ball.name = "Ball" + i;
+
             initialBounciness = ball.GetComponent<SphereCollider>().material.bounciness;
             ball.GetComponent<SphereCollider>().material.bounciness = 0f;
             

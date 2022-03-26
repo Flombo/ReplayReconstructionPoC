@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class BallCollision : MonoBehaviour
@@ -37,21 +36,22 @@ public class BallCollision : MonoBehaviour
             m_AudioSources[1].Play();
         }
 
-        //Invoke(nameof(DestroySelf), 2);
+        Invoke(nameof(DestroySelf), 2);
     }
 
     private void DestroySelf()
     {
         m_ShouldBlink = false;
-        Destroy(gameObject);
+        //Destroy(gameObject);
         FindObjectOfType<TriesAmount>().DecrementTries();
+        gameObject.SetActive(false);
         enabled = false;
     }
 
     private void FixedUpdate()
     {
         if (!(transform.position.y < 0)) return;
-        //DestroySelf();
+        DestroySelf();
     }
 
     private void Update()
