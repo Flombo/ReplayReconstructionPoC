@@ -24,7 +24,7 @@ namespace DefaultNamespace
         #region Download
         public static IEnumerator Download(string name, Action<List<ActionReplayRecord>> callback = null)
         {
-            using var request = UnityWebRequest.Get("http://localhost:3000/replays?name=" + name);
+            using var request = UnityWebRequest.Get("http://ee99945e-8c16-4dab-abfd-b04ec2178aac.fr.bw-cloud-instance.org/replays?name=" + name);
             yield return request.SendWebRequest();
             if (request.isNetworkError || request.isHttpError)
             {
@@ -45,7 +45,7 @@ namespace DefaultNamespace
         //     try
         //     {
         //         Init();
-        //         var response = await _httpClient.GetAsync(new Uri("http://localhost:3000/replays?name=" + name));
+        //         var response = await _httpClient.GetAsync(new Uri("http://ee99945e-8c16-4dab-abfd-b04ec2178aac.fr.bw-cloud-instance.org/replays?name=" + name));
         //
         //         if (response.IsSuccessStatusCode)
         //         {

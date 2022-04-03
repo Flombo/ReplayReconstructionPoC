@@ -1,7 +1,4 @@
-using System;
-using System.Globalization;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ReplayMenuController : MonoBehaviour
 {
